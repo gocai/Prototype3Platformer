@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private Camera mainCamera;
     private bool isGrounded;
+    private bool isJumping;
 
     private void Start()
     {
@@ -31,15 +32,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isJumping = true;
         }
 
         anim.SetBool("isRunning", horizontalInput != 0);
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && isJumping)
         {
             mainCamera.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) && isJumping)
         {
             mainCamera.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
