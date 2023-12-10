@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool isJumping;
 
+    public float gravityScale = 1.0f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,13 +41,29 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D) && isJumping)
         {
-            mainCamera.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
+            transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.A) && isJumping)
         {
-            mainCamera.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+            transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        }
+
+        float zRotation = transform.eulerAngles.z % 360;
+        zRotation = (zRotation + 360) % 360;
+
+        if (zRotation <= 90 || zRotation > 270)
+        {
+            // Normal gravity
+            rb.gravityScale = Mathf.Abs(gravityScale);
+        }
+        else
+        {
+            // Inverted gravity
+            rb.gravityScale = -Mathf.Abs(gravityScale);
         }
     }
+
+
 
     private void OnDrawGizmos()
     {
