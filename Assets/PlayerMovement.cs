@@ -39,11 +39,11 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isRunning", horizontalInput != 0);
 
-        if (Input.GetKey(KeyCode.D) && isJumping)
+        if (Input.GetKey(KeyCode.E) && isJumping)
         {
             transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.A) && isJumping)
+        else if (Input.GetKey(KeyCode.Q) && isJumping)
         {
             transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
